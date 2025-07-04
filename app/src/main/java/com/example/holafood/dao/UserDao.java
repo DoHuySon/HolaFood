@@ -49,4 +49,7 @@ public interface UserDao {
     // Lấy danh sách người bán theo trạng thái
     @Query("SELECT * FROM Users WHERE role = 'SELLER' AND store_status = :status")
     LiveData<List<User>> getSellersByStatus(StoreStatus status);
+    // Ktra đăng nhập
+    @Query("SELECT * FROM Users WHERE phone_number = :phoneNumber AND password = :password")
+    User getUserByPhoneAndPassword(String phoneNumber, String password);
 }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFF7F0"
+    android:padding="32dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/text_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hola Food"
+        android:textSize="32sp"
+        android:textColor="#FF6F00"
+        android:textStyle="bold"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="40dp" />
+
+    <EditText
+        android:id="@+id/edit_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:hint="Số điện thoại"
+        android:inputType="phone"
+        android:background="@drawable/edittext_bg"
+        android:padding="16dp"
+        android:textColor="#333"
+        android:textColorHint="#999"
+        android:layout_marginBottom="20dp"/>
+
+    <EditText
+        android:id="@+id/edit_password"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:hint="Mật khẩu"
+        android:inputType="textPassword"
+        android:background="@drawable/edittext_bg"
+        android:padding="16dp"
+        android:textColor="#333"
+        android:textColorHint="#999"
+        android:layout_marginBottom="30dp"/>
+
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="Đăng nhập"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_bg"
+        android:elevation="4dp"
+        android:layout_marginBottom="24dp"/>
+
+    <TextView
+        android:id="@+id/text_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chưa có tài khoản? Đăng ký"
+        android:textSize="16sp"
+        android:textColor="#FF6F00"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+</LinearLayout>
