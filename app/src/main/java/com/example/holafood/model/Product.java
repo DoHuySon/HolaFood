@@ -27,8 +27,8 @@ public class Product {
     @ColumnInfo(name = "price")
     private double price;
 
-    @ColumnInfo(name = "image_url")
-    private String imageUrl;
+    @ColumnInfo(name = "image_resource_name", typeAffinity = ColumnInfo.TEXT, defaultValue = "")
+    private String imageResourceName;
 
     @ColumnInfo(name = "status")
     private ProductStatus status;
@@ -45,12 +45,12 @@ public class Product {
         this.updatedAt = System.currentTimeMillis();
     }
 
-    public Product(int sellerId, String name, String description, double price, String imageUrl, ProductStatus status) {
+    public Product(int sellerId, String name, String description, double price, String imageResourceName, ProductStatus status) {
         this.sellerId = sellerId;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.imageUrl = imageUrl;
+        this.imageResourceName = imageResourceName;
         this.status = status != null ? status : ProductStatus.AVAILABLE;
         this.createdAt = System.currentTimeMillis();
         this.updatedAt = System.currentTimeMillis();
@@ -67,8 +67,8 @@ public class Product {
     public void setDescription(String description) { this.description = description; }
     public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }
-    public String getImageUrl() { return imageUrl; }
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    public String getImageResourceName() { return imageResourceName; }
+    public void setImageResourceName(String imageResourceName) { this.imageResourceName = imageResourceName; }
     public ProductStatus getStatus() { return status; }
     public void setStatus(ProductStatus status) { this.status = status; }
     public long getCreatedAt() { return createdAt; }

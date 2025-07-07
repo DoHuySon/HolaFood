@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.holafood.model.Product;
+import com.example.holafood.model.ProductStatus;
 import com.example.holafood.model.Role;
 import com.example.holafood.model.StoreStatus;
 import com.example.holafood.model.User;
@@ -48,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         insertSampleData();
+        //insertSampleData2();
         onBindingView();
         onBindingAction();
 
@@ -56,15 +59,41 @@ public class LoginActivity extends AppCompatActivity {
 
         // Kiểm tra nếu đã đăng nhập
         if (sessionManager.isLoggedIn()) {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            if(sessionManager.getRole() == Role.ADMIN){
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+            } else if (sessionManager.getRole() == Role.SELLER) {
+                startActivity(new Intent(this, SellerMainActivity.class));
+                finish();
+            }else {
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+            }
         }
     }
-
+//    private void insertSampleData2() {
+//        new Thread(() -> {
+//            User existingUser = App.getDatabase().userDao().getUserByPhoneAndPassword("0987654321", "123");
+//            if (existingUser == null) {
+////                User user1 = new User("user1@example.com", "password123", "Nguyen Van A", "0123456789", "123 Đường ABC, TP.HCM", Role.CUSTOMER, null, null, StoreStatus.PENDING);
+////                User user2 = new User("seller1@example.com", "password456", "Le Thi B", "0987654321", "456 Đường XYZ, TP.HCM", Role.SELLER, "Quán B", "Mô tả quán ăn ngon", StoreStatus.ACTIVE);
+////                App.getDatabase().userDao().insertUser(user1);
+////                App.getDatabase().userDao().insertUser(user2);
+//
+//                Product product1 = new Product(2, "Pizza", "Pizza ngon", 10.99, null, ProductStatus.AVAILABLE);
+//                Product product2 = new Product(2, "Hamburger", "Hamburger giòn", 5.99, null, ProductStatus.AVAILABLE);
+//                App.getDatabase().productDao().insertProduct(product1);
+//                App.getDatabase().productDao().insertProduct(product2);
+//            }
+//            runOnUiThread(() -> {
+//                // Toast.makeText(LoginActivity.this, "Dữ liệu mẫu đã được chèn", Toast.LENGTH_SHORT).show();
+//            });
+//        }).start();
+//    }
     private void insertSampleData() {
         new Thread(() -> {
             // Kiểm tra xem dữ liệu đã tồn tại chưa
-            User existingUser = App.getDatabase().userDao().getUserByPhoneAndPassword("0123456789", "password123");
+            User existingUser = App.getDatabase().userDao().getUserByPhoneAndPassword("0123456789", "123");
             if (existingUser == null) {
                 // Chèn người dùng mẫu
                 User user1 = new User(
@@ -89,8 +118,13 @@ public class LoginActivity extends AppCompatActivity {
                         "Mô tả quán ăn ngon",
                         StoreStatus.ACTIVE
                 );
+
                 App.getDatabase().userDao().insertUser(user1);
                 App.getDatabase().userDao().insertUser(user2);
+                Product product1 = new Product(2, "Pizza", "Pizza ngon", 10.99, "pizza_son", ProductStatus.AVAILABLE);
+                Product product2 = new Product(2, "Hamburger", "Hamburger giòn", 5.99, "hamburger_son", ProductStatus.AVAILABLE);
+                App.getDatabase().productDao().insertProduct(product1);
+                App.getDatabase().productDao().insertProduct(product2);
             }
 
             // Cập nhật UI trên main thread
@@ -119,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 } else if (user.getRole() == Role.SELLER) {
                     Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    startActivity(new Intent(LoginActivity.this, SellerMainActivity.class));
                 }else{
                     Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
