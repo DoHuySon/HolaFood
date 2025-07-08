@@ -42,7 +42,7 @@ public class ProductSellerAdapter extends RecyclerView.Adapter<ProductSellerAdap
         Product product = productList.get(position);
         holder.textProductName.setText(product.getName());
         holder.textProductPrice.setText("Giá: " + product.getPrice());
-        holder.textProductStatus.setText("Trạng thái: " + product.getStatus().name());
+        holder.textProductStatus.setText("Trạng thái: " + product.getStatus().getDisplayName());
         if (product.getImageResourceName() != null && !product.getImageResourceName().isEmpty()) {
             int resourceId = holder.itemView.getContext().getResources()
                     .getIdentifier(product.getImageResourceName(), "drawable", holder.itemView.getContext().getPackageName());

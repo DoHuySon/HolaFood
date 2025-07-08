@@ -104,7 +104,15 @@ public class SellerMainActivity extends AppCompatActivity implements ProductSell
 
     @Override
     public void onEditProduct(Product product) {
-        Toast.makeText(this, "Sửa sản phẩm: " + product.getName(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, EditProductActivity.class);
+        intent.putExtra("productId", product.getProductId());
+        intent.putExtra("sellerId", product.getSellerId());
+        intent.putExtra("name", product.getName());
+        intent.putExtra("description", product.getDescription());
+        intent.putExtra("price", product.getPrice());
+        intent.putExtra("imageResourceName", product.getImageResourceName());
+        intent.putExtra("status", product.getStatus().name());
+        startActivity(intent);
     }
 
     @Override
