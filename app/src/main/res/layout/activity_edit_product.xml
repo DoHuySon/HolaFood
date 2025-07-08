@@ -29,10 +29,18 @@
         android:layout_marginTop="8dp" />
 
     <EditText
-        android:id="@+id/edit_text_image_resource_name"
+        android:id="@+id/edit_text_image_path"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tên tài nguyên hình ảnh (ví dụ: pizza)"
+        android:hint="Đường dẫn hình ảnh"
+        android:layout_marginTop="8dp"
+        android:enabled="false" />
+
+    <Button
+        android:id="@+id/button_select_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chọn ảnh"
         android:layout_marginTop="8dp" />
 
     <Spinner

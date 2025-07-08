@@ -110,7 +110,7 @@ public class SellerMainActivity extends AppCompatActivity implements ProductSell
         intent.putExtra("name", product.getName());
         intent.putExtra("description", product.getDescription());
         intent.putExtra("price", product.getPrice());
-        intent.putExtra("imageResourceName", product.getImageResourceName());
+        intent.putExtra("imageResourceName", product.getImagePath());
         intent.putExtra("status", product.getStatus().name());
         startActivity(intent);
     }

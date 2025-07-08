@@ -1,5 +1,7 @@
 package com.example.holafood.adapter;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,13 +45,12 @@ public class ProductSellerAdapter extends RecyclerView.Adapter<ProductSellerAdap
         holder.textProductName.setText(product.getName());
         holder.textProductPrice.setText("Giá: " + product.getPrice());
         holder.textProductStatus.setText("Trạng thái: " + product.getStatus().getDisplayName());
-        if (product.getImageResourceName() != null && !product.getImageResourceName().isEmpty()) {
-            int resourceId = holder.itemView.getContext().getResources()
-                    .getIdentifier(product.getImageResourceName(), "drawable", holder.itemView.getContext().getPackageName());
-            if (resourceId != 0) {
-                holder.imageView.setImageResource(resourceId);
+        if (product.getImagePath() != null && !product.getImagePath().isEmpty()) {
+            Bitmap bitmap = BitmapFactory.decodeFile(product.getImagePath());
+            if (bitmap != null) {
+                holder.imageView.setImageBitmap(bitmap);
             } else {
-                holder.imageView.setImageResource(R.drawable.default_image); // Hình mặc định nếu không tìm thấy
+                holder.imageView.setImageResource(R.drawable.default_image); // Hình mặc định nếu không load được
             }
         } else {
             holder.imageView.setImageResource(R.drawable.default_image); // Hình mặc định

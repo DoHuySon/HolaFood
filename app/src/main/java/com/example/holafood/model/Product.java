@@ -27,8 +27,8 @@ public class Product {
     @ColumnInfo(name = "price")
     private double price;
 
-    @ColumnInfo(name = "image_resource_name", typeAffinity = ColumnInfo.TEXT, defaultValue = "")
-    private String imageResourceName;
+    @ColumnInfo(name = "image_path", typeAffinity = ColumnInfo.TEXT, defaultValue = "")
+    private String imagePath; // Thay image_resource_name bằng image_path
 
     @ColumnInfo(name = "status")
     private ProductStatus status;
@@ -45,12 +45,12 @@ public class Product {
         this.updatedAt = System.currentTimeMillis();
     }
 
-    public Product(int sellerId, String name, String description, double price, String imageResourceName, ProductStatus status) {
+    public Product(int sellerId, String name, String description, double price, String imagePath, ProductStatus status) {
         this.sellerId = sellerId;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.imageResourceName = imageResourceName;
+        this.imagePath = imagePath; // Sử dụng imagePath
         this.status = status != null ? status : ProductStatus.AVAILABLE;
         this.createdAt = System.currentTimeMillis();
         this.updatedAt = System.currentTimeMillis();
@@ -67,8 +67,8 @@ public class Product {
     public void setDescription(String description) { this.description = description; }
     public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }
-    public String getImageResourceName() { return imageResourceName; }
-    public void setImageResourceName(String imageResourceName) { this.imageResourceName = imageResourceName; }
+    public String getImagePath() { return imagePath; } // Thay getImageResourceName
+    public void setImagePath(String imagePath) { this.imagePath = imagePath; } // Thay setImageResourceName
     public ProductStatus getStatus() { return status; }
     public void setStatus(ProductStatus status) { this.status = status; }
     public long getCreatedAt() { return createdAt; }
@@ -76,4 +76,3 @@ public class Product {
     public long getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(long updatedAt) { this.updatedAt = updatedAt; }
 }
-

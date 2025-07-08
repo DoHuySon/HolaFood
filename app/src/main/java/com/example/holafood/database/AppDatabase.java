@@ -24,7 +24,7 @@ import com.example.holafood.model.RevenueStat;
 import com.example.holafood.model.User;
 
 @Database(entities = {User.class, Product.class, Order.class, OrderItem.class, Review.class, RevenueStat.class},
-        version = 1, exportSchema = false)
+        version = 2, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDao userDao();
@@ -56,7 +56,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     "name TEXT," +
                     "description TEXT," +
                     "price REAL," +
-                    "image_resource_name TEXT DEFAULT ''," + // Cột mới
+                    "image_path TEXT DEFAULT ''," + // Đảm bảo dùng image_path
                     "status TEXT," +
                     "created_at INTEGER," +
                     "updated_at INTEGER," +
