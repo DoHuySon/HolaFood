@@ -23,4 +23,7 @@ public interface OrderItemDao {
 
     @Query("SELECT * FROM Order_Items WHERE order_id = :orderId")
     LiveData<List<OrderItem>> getOrderItemsByOrder(int orderId);
+
+    @Query("SELECT * FROM Order_Items WHERE order_id = :orderId")
+    List<OrderItem> getOrderItemsByOrderSync(int orderId); // Thêm cho thread
 }
