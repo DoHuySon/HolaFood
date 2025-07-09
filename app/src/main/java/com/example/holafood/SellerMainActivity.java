@@ -88,6 +88,7 @@ public class SellerMainActivity extends AppCompatActivity implements ProductSell
         popupMenu.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.menu_add_product) {
                 Toast.makeText(this, "Chuyển đến màn hình tạo sản phẩm", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(SellerMainActivity.this, AddProductActivity.class));
                 return true;
             } else if (item.getItemId() == R.id.menu_view_orders) {
                 Toast.makeText(this, "Chuyển đến danh sách đặt đồ ăn", Toast.LENGTH_SHORT).show();
