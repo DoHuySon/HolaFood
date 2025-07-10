@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.example.holafood.model.Product;
 
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 public class OrderItemSellerAdapter extends RecyclerView.Adapter<OrderItemSellerAdapter.OrderItemViewHolder> {
 
@@ -42,33 +44,35 @@ public class OrderItemSellerAdapter extends RecyclerView.Adapter<OrderItemSeller
         return new OrderItemViewHolder(view);
     }
 
-    @Override
     public void onBindViewHolder(@NonNull OrderItemViewHolder holder, int position) {
         OrderItem item = orderItemList.get(position);
 
-        new Thread(() -> {
-            if (item.getProductId() != null) {
-                Product product = productDao.getProductById(item.getProductId()).getValue();
+        if (item.getProductId() != null) {
+            Executors.newSingleThreadExecutor().execute(() -> {
+                Log.d(TAG, "Loading product details for productId: " + item.getProductId());
+                Product product = productDao.getProductByIdSync(item.getProductId());
                 ((Activity) context).runOnUiThread(() -> {
                     if (product != null) {
                         holder.productNameText.setText("Tên sản phẩm: " + (product.getName() != null ? product.getName() : "Không rõ"));
                         String imagePath = product.getImagePath();
+                        Log.d(TAG, "Image path from product: " + imagePath);
                         if (imagePath != null && !imagePath.isEmpty()) {
-                            Log.d(TAG, "Attempting to load image from: " + imagePath);
-                            try {
-                                Bitmap bitmap = BitmapFactory.decodeFile(getFullImagePath(imagePath));
+                            String fullPath = getFullImagePath(imagePath);
+                            if (fullPath != null) {
+                                Bitmap bitmap = BitmapFactory.decodeFile(fullPath);
                                 if (bitmap != null) {
+                                    Log.d(TAG, "Image decoded successfully from: " + fullPath);
                                     holder.productImageView.setImageBitmap(bitmap);
                                 } else {
-                                    Log.w(TAG, "Failed to decode bitmap for path: " + imagePath);
+                                    Log.w(TAG, "Failed to decode bitmap from: " + fullPath);
                                     holder.productImageView.setImageResource(R.drawable.default_image);
                                 }
-                            } catch (Exception e) {
-                                Log.e(TAG, "Error loading image: " + e.getMessage());
+                            } else {
+                                Log.w(TAG, "Full path is null for image: " + imagePath);
                                 holder.productImageView.setImageResource(R.drawable.default_image);
                             }
                         } else {
-                            Log.w(TAG, "Image path is null or empty");
+                            Log.w(TAG, "Image path is null or empty for productId: " + item.getProductId());
                             holder.productImageView.setImageResource(R.drawable.default_image);
                         }
                     } else {
@@ -79,14 +83,50 @@ public class OrderItemSellerAdapter extends RecyclerView.Adapter<OrderItemSeller
                     holder.quantityText.setText("Số lượng: " + item.getQuantity());
                     holder.unitPriceText.setText("Đơn giá: $" + item.getUnitPrice());
                 });
-            }
-        }).start();
+            });
+        }
     }
 
-    private String getFullImagePath(String imageName) {
-        // Giả định hình ảnh nằm trong thư mục pictures của bộ nhớ ngoài
-        File directory = new File("/storage/emulated/0/pictures/");
-        return new File(directory, imageName).getAbsolutePath();
+    private String getFullImagePath(String imagePath) {
+        if (imagePath == null || imagePath.isEmpty()) {
+            Log.w(TAG, "Image path is null or empty");
+            return null;
+        }
+
+        // Kiểm tra nếu là đường dẫn nội bộ (bắt đầu bằng /data/user/0/)
+        if (imagePath.startsWith("/data/user/0/")) {
+            File file = new File(imagePath);
+            if (file.exists()) {
+                Log.d(TAG, "Internal image found at: " + file.getAbsolutePath());
+                return file.getAbsolutePath();
+            } else {
+                Log.e(TAG, "Internal image not found at: " + file.getAbsolutePath());
+                return null;
+            }
+        }
+
+        // Nếu không phải đường dẫn nội bộ, thử tìm ở thư mục công cộng
+        if (!imagePath.contains(".")) {
+            String[] possibleExtensions = {".jpg", ".png", ".jpeg"};
+            for (String ext : possibleExtensions) {
+                File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), imagePath + ext);
+                if (file.exists()) {
+                    Log.d(TAG, "Public image found with extension: " + imagePath + ext);
+                    return file.getAbsolutePath();
+                }
+            }
+            Log.w(TAG, "No matching public file found for: " + imagePath);
+            return null;
+        }
+
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), imagePath);
+        if (file.exists()) {
+            Log.d(TAG, "Public image found at: " + file.getAbsolutePath());
+            return file.getAbsolutePath();
+        } else {
+            Log.e(TAG, "Public image not found at: " + file.getAbsolutePath());
+            return null;
+        }
     }
 
     @Override
