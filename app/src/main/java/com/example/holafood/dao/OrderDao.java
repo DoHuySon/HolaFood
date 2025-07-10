@@ -39,4 +39,10 @@ public interface OrderDao {
     LiveData<List<Order>> getOrdersByStatus(OrderStatus status);
     @Query("SELECT * FROM Orders")
     LiveData<List<Order>> getAllOrders();
+
+    @Query("SELECT * FROM Orders WHERE seller_id = :sellerId AND status = 'DELIVERED' ORDER BY created_at DESC")
+    LiveData<List<Order>> getDeliveredOrdersBySeller(int sellerId);
+
+    @Query("SELECT SUM(total_amount) FROM Orders WHERE seller_id = :sellerId AND status = 'DELIVERED' AND created_at BETWEEN :startTime AND :endTime")
+    LiveData<Double> getTotalRevenueBySeller(int sellerId, long startTime, long endTime);
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <!-- Tiêu đề hoặc thông tin thời gian -->
+    <TextView
+        android:id="@+id/tv_period"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thời gian: Không có dữ liệu"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:paddingBottom="16dp" />
+
+    <!-- Tổng doanh thu -->
+    <TextView
+        android:id="@+id/tv_total_revenue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Doanh thu: $0.00"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center"
+        android:paddingBottom="24dp" />
+
+    <!-- Có thể thêm nút hoặc spinner để chọn khoảng thời gian (tùy chọn) -->
+    <!-- Ví dụ: -->
+    <!--
+    <Spinner
+        android:id="@+id/sp_period"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/period_options"
+        android:prompt="@string/select_period" />
+    -->
+
+</LinearLayout>

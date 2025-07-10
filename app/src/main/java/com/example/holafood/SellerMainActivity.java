@@ -96,12 +96,21 @@ public class SellerMainActivity extends AppCompatActivity implements ProductSell
                 return true;
             } else if (item.getItemId() == R.id.menu_view_revenue) {
                 Toast.makeText(this, "Thống kê doanh thu", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SellerMainActivity.this, RevenueStatActivity.class);
+                intent.putExtra("sellerId", getCurrentSellerId()); // Thay bằng logic lấy sellerId thực tế
+                startActivity(intent);
                 return true;
             } else {
                 return false;
             }
         });
         popupMenu.show();
+    }
+
+    private int getCurrentSellerId() {
+        // Logic lấy sellerId từ session, SharedPreferences, hoặc database
+        // Ví dụ tạm thời
+        return 1; // Thay bằng giá trị thực tế
     }
 
     @Override

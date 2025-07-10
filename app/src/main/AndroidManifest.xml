@@ -19,6 +19,9 @@
         android:theme="@style/Theme.HolaFood"
         tools:targetApi="31">
         <activity
+            android:name=".RevenueStatActivity"
+            android:exported="false" />
+        <activity
             android:name=".OrderDetailSellerActivity"
             android:exported="false" />
         <activity
