@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_add_product"
+        android:title="Tạo sản phẩm mới" />
+    <item
+        android:id="@+id/menu_view_orders"
+        android:title="Xem danh sách đặt đồ ăn" />
+    <item
+        android:id="@+id/menu_view_revenue"
+        android:title="Xem thống kê doanh thu" />
+</menu>
