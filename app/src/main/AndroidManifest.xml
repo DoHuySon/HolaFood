@@ -19,11 +19,25 @@
             android:name=".EditProductActivity"
             android:exported="false" />
         <activity
+            android:name=".ProductDetailActivity"
+            android:exported="true"  >
+
+        </activity>
+
+        <activity
+            android:name=".CheckoutActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".SellerMainActivity"
-            android:exported="true"></activity>
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".LoginActivity"
             android:exported="true">

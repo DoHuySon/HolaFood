@@ -16,7 +16,8 @@ import java.util.List;
 public interface OrderDao {
     @Insert
     void insertOrder(Order order);
-
+    @Insert
+    long insertOrders(Order order);
     @Insert
     void insertOrders(List<Order> orders);
 
@@ -37,4 +38,8 @@ public interface OrderDao {
 
     @Query("SELECT * FROM Orders WHERE status = :status")
     LiveData<List<Order>> getOrdersByStatus(OrderStatus status);
+
+    @Query("SELECT * FROM Orders WHERE customer_id = :customerId ORDER BY created_at DESC")
+    List<Order> getOrdersByCustomerNow(int customerId);
+
 }
