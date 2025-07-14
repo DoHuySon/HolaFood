@@ -30,4 +30,6 @@ public interface ReviewDao {
 
     @Query("SELECT * FROM Reviews WHERE customer_id = :customerId")
     LiveData<List<Review>> getReviewsByCustomer(int customerId);
+    @Query("SELECT * FROM Reviews WHERE order_id = :orderId AND customer_id = :customerId AND product_id = :productId")
+    Review getReviewByOrderAndCustomer(int orderId, int customerId, int productId);
 }

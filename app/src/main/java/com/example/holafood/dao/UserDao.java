@@ -33,6 +33,8 @@ public interface UserDao {
     // Lấy người dùng theo ID
     @Query("SELECT * FROM Users WHERE user_id = :userId")
     LiveData<User> getUserById(int userId);
+    @Query("SELECT * FROM Users WHERE user_id = :userId")
+    User getUserByIdd(int userId);
 
     // Lấy người dùng theo email
     @Query("SELECT * FROM Users WHERE email = :email")

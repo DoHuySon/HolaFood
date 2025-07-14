@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFF7F0"
+    android:padding="32dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/text_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thông Tin Cá Nhân"
+        android:textSize="32sp"
+        android:textColor="#FF6F00"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp" />
+
+    <EditText
+        android:id="@+id/edit_user_id"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:hint="ID Người Dùng"
+        android:inputType="number"
+        android:background="@drawable/edittext_bg"
+        android:padding="16dp"
+        android:textColor="#333"
+        android:textColorHint="#999"
+        android:layout_marginBottom="20dp"
+        android:enabled="false" />
+
+    <EditText
+        android:id="@+id/edit_email"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/edittext_bg"
+        android:padding="16dp"
+        android:textColor="#333"
+        android:textColorHint="#999"
+        android:layout_marginBottom="20dp"
+        android:enabled="false" />
+
+    <EditText
+        android:id="@+id/edit_password"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:hint="Mật Khẩu"
+        android:inputType="textPassword"
+        android:background="@drawable/edittext_bg"
+        android:padding="16dp"
+        android:textColor="#333"
+        android:textColorHint="#999"
+        android:layout_marginBottom="20dp"
+        android:enabled="false" />
+
+    <EditText
+        android:id="@+id/edit_full_name"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:hint="Họ và Tên"
+        android:inputType="textPersonName"
+        android:background="@drawable/edittext_bg"
+        android:padding="16dp"
+        android:textColor="#333"
+        android:textColorHint="#999"
+        android:layout_marginBottom="20dp"
+        android:enabled="false" />
+
+    <EditText
+        android:id="@+id/edit_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:hint="Số Điện Thoại"
+        android:inputType="phone"
+        android:background="@drawable/edittext_bg"
+        android:padding="16dp"
+        android:textColor="#333"
+        android:textColorHint="#999"
+        android:layout_marginBottom="20dp"
+        android:enabled="false" />
+
+    <EditText
+        android:id="@+id/edit_address"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:hint="Địa Chỉ"
+        android:inputType="textPostalAddress"
+        android:background="@drawable/edittext_bg"
+        android:padding="16dp"
+        android:textColor="#333"
+        android:textColorHint="#999"
+        android:layout_marginBottom="20dp"
+        android:enabled="false" />
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/edit_role"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="55dp"-->
+    <!--        android:hint="Vai Trò"-->
+    <!--        android:inputType="text"-->
+    <!--        android:background="@drawable/edittext_bg"-->
+    <!--        android:padding="16dp"-->
+    <!--        android:textColor="#333"-->
+    <!--        android:textColorHint="#999"-->
+    <!--        android:layout_marginBottom="20dp"-->
+    <!--        android:enabled="false" />-->
+
+    <EditText
+        android:id="@+id/edit_store_name"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:hint="Tên Quán"
+        android:inputType="text"
+        android:background="@drawable/edittext_bg"
+        android:padding="16dp"
+        android:textColor="#333"
+        android:textColorHint="#999"
+        android:layout_marginBottom="20dp"
+        android:enabled="false"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/edit_store_description"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:hint="Mô Tả Quán"
+        android:inputType="textMultiLine"
+        android:background="@drawable/edittext_bg"
+        android:padding="16dp"
+        android:textColor="#333"
+        android:textColorHint="#999"
+        android:layout_marginBottom="20dp"
+        android:enabled="false"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/edit_store_status"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:hint="Trạng Thái Quán"
+        android:inputType="text"
+        android:background="@drawable/edittext_bg"
+        android:padding="16dp"
+        android:textColor="#333"
+        android:textColorHint="#999"
+        android:layout_marginBottom="20dp"
+        android:enabled="false"
+        android:visibility="gone" />
+
+    <!--    &#45;&#45;<EditText-->
+    <!--        android:id="@+id/edit_created_at"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="55dp"-->
+    <!--        android:hint="Thời Gian Tạo"-->
+    <!--        android:inputType="text"-->
+    <!--        android:background="@drawable/edittext_bg"-->
+    <!--        android:padding="16dp"-->
+    <!--        android:textColor="#333"-->
+    <!--        android:textColorHint="#999"-->
+    <!--        android:layout_marginBottom="20dp"-->
+    <!--        android:enabled="false" />&#45;&#45;-->
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/edit_updated_at"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="55dp"-->
+    <!--        android:hint="Thời Gian Cập Nhật"-->
+    <!--        android:inputType="text"-->
+    <!--        android:background="@drawable/edittext_bg"-->
+    <!--        android:padding="16dp"-->
+    <!--        android:textColor="#333"-->
+    <!--        android:textColorHint="#999"-->
+    <!--        android:layout_marginBottom="30dp"-->
+    <!--        android:enabled="false" />-->
+
+    <Button
+        android:id="@+id/button_edit"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="Chỉnh Sửa"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_bg"
+        android:elevation="4dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/layout_edit_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_weight="1"
+            android:text="Lưu"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_bg"
+            android:elevation="4dp"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_weight="1"
+            android:text="Hủy"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_bg"
+            android:elevation="4dp"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
