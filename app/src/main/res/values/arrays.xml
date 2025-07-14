@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="order_status_array">
+        <item>Đã đặt</item>
+        <item>Đang xử lý</item>
+        <item>Đã giao</item>
+        <item>Đã hủy</item>
+    </string-array>
+    <string-array name="payment_method_array">
+        <item>Thanh toán tiền mặt</item>
+        <item>Chuyển khoản ngân hàng</item>
+    </string-array>
+</resources>

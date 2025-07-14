@@ -10,6 +10,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.holafood.model.Order;
+import com.example.holafood.model.OrderItem;
+import com.example.holafood.model.OrderStatus;
+import com.example.holafood.model.PaymentMethod;
 import com.example.holafood.model.Product;
 import com.example.holafood.model.ProductStatus;
 import com.example.holafood.model.Role;
@@ -71,29 +75,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
-//    private void insertSampleData2() {
-//        new Thread(() -> {
-//            User existingUser = App.getDatabase().userDao().getUserByPhoneAndPassword("0987654321", "123");
-//            if (existingUser == null) {
-////                User user1 = new User("user1@example.com", "password123", "Nguyen Van A", "0123456789", "123 Đường ABC, TP.HCM", Role.CUSTOMER, null, null, StoreStatus.PENDING);
-////                User user2 = new User("seller1@example.com", "password456", "Le Thi B", "0987654321", "456 Đường XYZ, TP.HCM", Role.SELLER, "Quán B", "Mô tả quán ăn ngon", StoreStatus.ACTIVE);
-////                App.getDatabase().userDao().insertUser(user1);
-////                App.getDatabase().userDao().insertUser(user2);
 //
-//                Product product1 = new Product(2, "Pizza", "Pizza ngon", 10.99, null, ProductStatus.AVAILABLE);
-//                Product product2 = new Product(2, "Hamburger", "Hamburger giòn", 5.99, null, ProductStatus.AVAILABLE);
-//                App.getDatabase().productDao().insertProduct(product1);
-//                App.getDatabase().productDao().insertProduct(product2);
-//            }
-//            runOnUiThread(() -> {
-//                // Toast.makeText(LoginActivity.this, "Dữ liệu mẫu đã được chèn", Toast.LENGTH_SHORT).show();
-//            });
-//        }).start();
-//    }
     private void insertSampleData() {
         new Thread(() -> {
             // Kiểm tra xem dữ liệu đã tồn tại chưa
-            User existingUser = App.getDatabase().userDao().getUserByPhoneAndPassword("0123456789", "123");
+            User existingUser = App.getDatabase().userDao().getUserByPhoneAndPassword("1234567890", "123");
             if (existingUser == null) {
                 // Chèn người dùng mẫu
                 User user1 = new User(
@@ -121,10 +107,18 @@ public class LoginActivity extends AppCompatActivity {
 
                 App.getDatabase().userDao().insertUser(user1);
                 App.getDatabase().userDao().insertUser(user2);
-                Product product1 = new Product(2, "Pizza", "Pizza ngon", 10.99, "pizza_son", ProductStatus.AVAILABLE);
-                Product product2 = new Product(2, "Hamburger", "Hamburger giòn", 5.99, "hamburger_son", ProductStatus.AVAILABLE);
+                Product product1 = new Product(2, "Pizza", "Pizza ngon", 10.99, "/storage/emulated/0/pictures/pizza_son", ProductStatus.AVAILABLE);
+                Product product2 = new Product(2, "Hamburger", "Hamburger giòn", 5.99, "/storage/emulated/0/pictures/hamburger_son", ProductStatus.AVAILABLE);
                 App.getDatabase().productDao().insertProduct(product1);
                 App.getDatabase().productDao().insertProduct(product2);
+                Order order1 = new Order(1, 2, 50.0, "123 ABC", "0901234567", PaymentMethod.CASH, OrderStatus.PLACED);
+                Order order2 = new Order(2, 2, 75.0, "456 XYZ", "0912345678", PaymentMethod.BANK_TRANSFER, OrderStatus.PROCESSING);
+                App.getDatabase().orderDao().insertOrder(order1);
+                App.getDatabase().orderDao().insertOrder(order2);
+                OrderItem orderItem1 = new OrderItem(1, 1, 3, 10.99); // order1 với product1, số lượng 3
+                OrderItem orderItem2 = new OrderItem(1, 2, 5, 5.99);  // order2 với product2, số lượng 5
+                App.getDatabase().orderItemDao().insertOrderItem(orderItem1);
+                App.getDatabase().orderItemDao().insertOrderItem(orderItem2);
             }
 
             // Cập nhật UI trên main thread

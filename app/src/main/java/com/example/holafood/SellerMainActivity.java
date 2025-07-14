@@ -87,19 +87,30 @@ public class SellerMainActivity extends AppCompatActivity implements ProductSell
         popupMenu.getMenuInflater().inflate(R.menu.seller_menu, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.menu_add_product) {
-                Toast.makeText(this, "Chuyển đến màn hình tạo sản phẩm", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Tạo sản phẩm", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(SellerMainActivity.this, AddProductActivity.class));
                 return true;
             } else if (item.getItemId() == R.id.menu_view_orders) {
-                Toast.makeText(this, "Chuyển đến danh sách đặt đồ ăn", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Danh sách đặt đồ ăn", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(SellerMainActivity.this, OrderListSellerActivity.class));
                 return true;
             } else if (item.getItemId() == R.id.menu_view_revenue) {
-                Toast.makeText(this, "Chuyển đến thống kê doanh thu", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Thống kê doanh thu", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SellerMainActivity.this, RevenueStatActivity.class);
+                intent.putExtra("sellerId", getCurrentSellerId()); // Thay bằng logic lấy sellerId thực tế
+                startActivity(intent);
                 return true;
             } else {
                 return false;
             }
         });
         popupMenu.show();
+    }
+
+    private int getCurrentSellerId() {
+        // Logic lấy sellerId từ session, SharedPreferences, hoặc database
+        // Ví dụ tạm thời
+        return 1; // Thay bằng giá trị thực tế
     }
 
     @Override

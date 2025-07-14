@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <!-- Quyền ghi bộ nhớ (chỉ áp dụng đến API 28, không cần cho API 36) -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -15,6 +18,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HolaFood"
         tools:targetApi="31">
+        <activity
+            android:name=".RevenueStatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OrderDetailSellerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OrderListSellerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddProductActivity"
+            android:exported="false" />
         <activity
             android:name=".EditProductActivity"
             android:exported="false" />
@@ -33,11 +48,10 @@
             android:exported="true">
 
         </activity>
+
         <activity
             android:name=".SellerMainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">
