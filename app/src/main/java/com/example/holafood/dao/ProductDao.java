@@ -29,9 +29,17 @@ public interface ProductDao {
     @Query("SELECT * FROM Products WHERE product_id = :productId")
     LiveData<Product> getProductById(int productId);
 
+    @Query("SELECT * FROM Products WHERE product_id = :productId")
+    Product getProductByIdSync(int productId); // Thêm phương thức đồng bộ
+
     @Query("SELECT * FROM Products WHERE seller_id = :sellerId")
     LiveData<List<Product>> getProductsBySeller(int sellerId);
 
     @Query("SELECT * FROM Products WHERE status = :status")
     LiveData<List<Product>> getProductsByStatus(ProductStatus status);
+    @Query("SELECT * FROM Products WHERE product_id = :productId LIMIT 1")
+    Product getProductByIdNow(int productId);
+
+    @Query("SELECT * FROM Products")
+    LiveData<List<Product>> getAllProducts();
 }

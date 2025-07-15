@@ -5,12 +5,14 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "Products",
         foreignKeys = @ForeignKey(entity = User.class,
                 parentColumns = "user_id",
                 childColumns = "seller_id",
                 onDelete = ForeignKey.CASCADE))
-public class Product {
+public class Product implements Serializable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "product_id")
     private int productId;

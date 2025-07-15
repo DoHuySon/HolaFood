@@ -108,7 +108,7 @@ public class EditProductActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        imagePickerLauncher.launch(intent);
+        imagePickerLauncher.launch(Intent.createChooser(intent, "Chọn ảnh"));
     }
 
     private String copyImageToInternalStorage(Uri imageUri) {

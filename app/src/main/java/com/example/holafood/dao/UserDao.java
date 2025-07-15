@@ -54,4 +54,8 @@ public interface UserDao {
     // Ktra đăng nhập
     @Query("SELECT * FROM Users WHERE phone_number = :phoneNumber AND password = :password")
     User getUserByPhoneAndPassword(String phoneNumber, String password);
+
+    @Query("SELECT * FROM Users WHERE user_id = :userId")
+    User getUserByIdNow(int userId); // <-- trả về trực tiếp, dùng trong background thread
+
 }

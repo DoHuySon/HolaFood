@@ -19,9 +19,9 @@ public interface RevenueStatDao {
     @Insert
     void insertRevenueStats(List<RevenueStat> stats);
 
-    @Query("SELECT * FROM Revenue_Stats WHERE seller_id = :sellerId")
+    @Query("SELECT * FROM Revenue_Stats WHERE seller_id = :sellerId ORDER BY period_start DESC")
     LiveData<List<RevenueStat>> getRevenueStatsBySeller(int sellerId);
 
-    @Query("SELECT * FROM Revenue_Stats WHERE seller_id = :sellerId AND period_start >= :start AND period_end <= :end")
-    LiveData<List<RevenueStat>> getRevenueStatsByPeriod(int sellerId, Date start, Date end);
+    @Query("SELECT * FROM Revenue_Stats WHERE seller_id = :sellerId AND period_start = :periodStart AND period_end = :periodEnd")
+    RevenueStat getRevenueStatByPeriod(int sellerId, long periodStart, long periodEnd);
 }

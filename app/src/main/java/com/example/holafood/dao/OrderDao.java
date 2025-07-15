@@ -16,7 +16,8 @@ import java.util.List;
 public interface OrderDao {
     @Insert
     void insertOrder(Order order);
-
+    @Insert
+    long insertOrders(Order order);
     @Insert
     void insertOrders(List<Order> orders);
 
@@ -38,4 +39,16 @@ public interface OrderDao {
     LiveData<List<Order>> getDeliveredOrdersByCustomer(int customerId, String status);
     @Query("SELECT * FROM Orders WHERE status = :status")
     LiveData<List<Order>> getOrdersByStatus(OrderStatus status);
+
+    @Query("SELECT * FROM Orders WHERE customer_id = :customerId ORDER BY created_at DESC")
+    List<Order> getOrdersByCustomerNow(int customerId);
+
+    @Query("SELECT * FROM Orders")
+    LiveData<List<Order>> getAllOrders();
+
+    @Query("SELECT * FROM Orders WHERE seller_id = :sellerId AND status = 'DELIVERED' ORDER BY created_at DESC")
+    LiveData<List<Order>> getDeliveredOrdersBySeller(int sellerId);
+
+    @Query("SELECT SUM(total_amount) FROM Orders WHERE seller_id = :sellerId AND status = 'DELIVERED' AND created_at BETWEEN :startTime AND :endTime")
+    LiveData<Double> getTotalRevenueBySeller(int sellerId, long startTime, long endTime);
 }
