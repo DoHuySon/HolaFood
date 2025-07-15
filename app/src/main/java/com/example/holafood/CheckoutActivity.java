@@ -24,6 +24,7 @@ import java.util.List;
 
 public class CheckoutActivity extends AppCompatActivity {
 
+    private static final String TAG = "CheckoutActivity";
     private AppDatabase db;
     private Product product;
     private User currentUser;
@@ -40,7 +41,18 @@ public class CheckoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
 
         db = AppDatabase.getDatabase(this);
-        product = (Product) getIntent().getSerializableExtra("product");
+
+        // Lấy productId từ Intent
+        int productId = getIntent().getIntExtra("productId", -1);
+        if (productId != -1) {
+            new Thread(() -> {
+                product = db.productDao().getProductByIdSync(productId);
+                runOnUiThread(() -> updateUI());
+            }).start();
+        } else {
+            Toast.makeText(this, "Lỗi: Không tìm thấy sản phẩm", Toast.LENGTH_SHORT).show();
+            finish();
+        }
 
         // Liên kết View
         editPhone = findViewById(R.id.edit_phone);
@@ -63,18 +75,12 @@ public class CheckoutActivity extends AppCompatActivity {
             }
         });
 
-        if (product != null) {
-            double total = product.getPrice(); // mặc định số lượng = 1
-            textTotalPrice.setText("Tổng: " + total + "đ");
-        }
-
         // Lấy user từ Session và gán vào EditText
         SessionManager sessionManager = new SessionManager(this);
         int userId = sessionManager.getUserId();
 
         new Thread(() -> {
             currentUser = db.userDao().getUserByIdNow(userId);
-
             runOnUiThread(() -> {
                 if (currentUser != null) {
                     editPhone.setText(currentUser.getPhoneNumber());
@@ -85,6 +91,16 @@ public class CheckoutActivity extends AppCompatActivity {
 
         // Bắt sự kiện Thanh toán
         btnCheckout.setOnClickListener(v -> handleCheckout());
+    }
+
+    private void updateUI() {
+        if (product != null) {
+            double total = product.getPrice() * numberPicker.getValue();
+            textTotalPrice.setText("Tổng: " + total + "đ");
+        } else {
+            textTotalPrice.setText("Tổng: 0đ");
+            Toast.makeText(this, "Lỗi: Không tải được sản phẩm", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void handleCheckout() {
@@ -116,22 +132,33 @@ public class CheckoutActivity extends AppCompatActivity {
         );
 
         new Thread(() -> {
-            long orderId = db.orderDao().insertOrders(order);
-            OrderItem orderItem = new OrderItem((int) orderId, product.getProductId(), quantity, product.getPrice());
-            db.orderItemDao().insertOrderItem(orderItem);
-            List<Order> userOrders = db.orderDao().getOrdersByCustomerNow(currentUser.getUserId());
+            try {
+                long orderId = db.orderDao().insertOrders(order);
+                if (orderId != -1) {
+                    OrderItem orderItem = new OrderItem((int) orderId, product.getProductId(), quantity, product.getPrice());
+                    db.orderItemDao().insertOrderItem(orderItem);
 
-            for (Order o : userOrders) {
-                Log.d("USER_ORDER", "OrderId: " + o.getOrderId()
-                        + ", Tổng: " + o.getTotalAmount()
-                        + ", Phương thức: " + o.getPaymentMethod()
-                        + ", Trạng thái: " + o.getStatus()
-                        + ", Ngày: " + o.getCreatedAt());
+                    // Lấy danh sách đơn hàng để log
+                    List<Order> userOrders = db.orderDao().getOrdersByCustomerNow(currentUser.getUserId());
+                    for (Order o : userOrders) {
+                        Log.d(TAG, "OrderId: " + o.getOrderId()
+                                + ", Tổng: " + o.getTotalAmount()
+                                + ", Phương thức: " + o.getPaymentMethod()
+                                + ", Trạng thái: " + o.getStatus()
+                                + ", Ngày: " + o.getCreatedAt());
+                    }
+
+                    runOnUiThread(() -> {
+                        Toast.makeText(this, "Đặt hàng thành công!", Toast.LENGTH_SHORT).show();
+                        finish(); // Quay lại màn hình trước
+                    });
+                } else {
+                    runOnUiThread(() -> Toast.makeText(this, "Lỗi: Không thể tạo đơn hàng", Toast.LENGTH_SHORT).show());
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Error in checkout: " + e.getMessage());
+                runOnUiThread(() -> Toast.makeText(this, "Lỗi khi xử lý đơn hàng", Toast.LENGTH_SHORT).show());
             }
-            runOnUiThread(() -> {
-                Toast.makeText(this, "Đặt hàng thành công!", Toast.LENGTH_SHORT).show();
-                finish();
-            });
         }).start();
     }
 }

@@ -15,7 +15,7 @@ import java.util.List;
 @Dao
 public interface ProductDao {
     @Insert
-    void insertProduct(Product product);
+    long insertProduct(Product product);
 
     @Insert
     void insertProducts(List<Product> products);
@@ -29,7 +29,7 @@ public interface ProductDao {
     @Query("SELECT * FROM Products WHERE product_id = :productId")
     LiveData<Product> getProductById(int productId);
 
-    @Query("SELECT * FROM Products WHERE product_id = :productId")
+    @Query("SELECT * FROM Products WHERE product_id = :productId LIMIT 1")
     Product getProductByIdSync(int productId); // Thêm phương thức đồng bộ
 
     @Query("SELECT * FROM Products WHERE seller_id = :sellerId")
@@ -42,4 +42,5 @@ public interface ProductDao {
 
     @Query("SELECT * FROM Products")
     LiveData<List<Product>> getAllProducts();
+
 }

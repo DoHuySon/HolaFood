@@ -13,7 +13,7 @@ import java.util.List;
 @Dao
 public interface OrderItemDao {
     @Insert
-    void insertOrderItem(OrderItem orderItem);
+    long insertOrderItem(OrderItem orderItem);
 
     @Insert
     void insertOrderItems(List<OrderItem> orderItems);

@@ -15,7 +15,7 @@ import java.util.List;
 @Dao
 public interface OrderDao {
     @Insert
-    void insertOrder(Order order);
+    long insertOrder(Order order);
     @Insert
     long insertOrders(Order order);
     @Insert

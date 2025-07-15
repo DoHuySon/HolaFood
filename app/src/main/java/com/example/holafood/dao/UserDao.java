@@ -16,7 +16,7 @@ import java.util.List;
 public interface UserDao {
     // Thêm một người dùng
     @Insert
-    void insertUser(User user);
+    long insertUser(User user);
 
     // Thêm nhiều người dùng
     @Insert

@@ -1,59 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#FFF7F0"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
+    <ImageView
+        android:id="@+id/detail_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="Hình ảnh chi tiết sản phẩm"
+        android:src="@drawable/default_image" />
 
-        <!-- Ảnh sản phẩm -->
-        <ImageView
-            android:id="@+id/product_image"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:layout_marginBottom="16dp" />
+    <TextView
+        android:id="@+id/detail_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:paddingTop="16dp" />
 
-        <!-- Tên sản phẩm -->
-        <TextView
-            android:id="@+id/product_name"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#FF6F00"
-            android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/detail_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:paddingTop="8dp" />
 
-        <!-- Giá -->
-        <TextView
-            android:id="@+id/product_price"
-            android:textSize="20sp"
-            android:textColor="#333"
-            android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/detail_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:paddingTop="8dp" />
 
-        <!-- Mô tả -->
-        <TextView
-            android:id="@+id/product_description"
-            android:textSize="16sp"
-            android:textColor="#666"
-            android:layout_marginBottom="24dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/detail_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:paddingTop="8dp" />
 
-        <!-- Nút đặt hàng -->
-        <Button
-            android:id="@+id/button_order"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Đặt hàng"
-            android:background="@drawable/button_bg"
-            android:textColor="#FFFFFF" />
-    </LinearLayout>
-</ScrollView>
+    <Button
+        android:id="@+id/btn_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đặt hàng"
+        android:layout_gravity="end"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đánh giá"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingTop="16dp" />
+    <TextView
+        android:id="@+id/review_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Số đánh giá: 0"
+        android:textSize="14sp"
+        android:padding="8dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_reviews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible" />
+
+</LinearLayout>

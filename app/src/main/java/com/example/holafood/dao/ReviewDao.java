@@ -14,7 +14,7 @@ import java.util.List;
 @Dao
 public interface ReviewDao {
     @Insert
-    void insertReview(Review review);
+    long insertReview(Review review);
 
     @Insert
     void insertReviews(List<Review> reviews);
@@ -32,4 +32,6 @@ public interface ReviewDao {
     LiveData<List<Review>> getReviewsByCustomer(int customerId);
     @Query("SELECT * FROM Reviews WHERE order_id = :orderId AND customer_id = :customerId AND product_id = :productId")
     Review getReviewByOrderAndCustomer(int orderId, int customerId, int productId);
+    @Query("SELECT * FROM Reviews WHERE product_id = :productId")
+    List<Review> getReviewsByProductId(int productId);
 }

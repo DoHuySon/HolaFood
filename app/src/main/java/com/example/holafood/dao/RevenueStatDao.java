@@ -14,7 +14,7 @@ import java.util.List;
 @Dao
 public interface RevenueStatDao {
     @Insert
-    void insertRevenueStat(RevenueStat stat);
+    long insertRevenueStat(RevenueStat stat);
 
     @Insert
     void insertRevenueStats(List<RevenueStat> stats);
