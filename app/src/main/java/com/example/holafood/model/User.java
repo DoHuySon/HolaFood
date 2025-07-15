@@ -162,5 +162,6 @@ public class User {
     public void setUpdatedAt(long updatedAt) {
         this.updatedAt = updatedAt;
     }
+
 }
 

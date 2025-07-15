@@ -40,6 +40,8 @@ public class EditProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_product);
+        getSupportActionBar()
+                .setTitle(getIntent().getStringExtra("name"));
 
         // Ánh xạ các view
         editTextName = findViewById(R.id.edit_text_name);

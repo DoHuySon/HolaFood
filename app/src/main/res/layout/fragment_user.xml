@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#FAFAFA">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+        android:id="@+id/edt_search_user"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Tìm theo vai trò (bán / đặt)"
+        android:background="@drawable/rounded_edittext"
+        android:paddingHorizontal="16dp"
+        android:textSize="14sp"
+        android:layout_alignParentTop="true"
+        android:drawableLeft="@android:drawable/ic_menu_search"
+        android:drawablePadding="8dp" />
+
+    <Spinner
+        android:id="@+id/spinner_user_type"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/rounded_edittext"
+        android:paddingHorizontal="12dp"
+        android:spinnerMode="dropdown"
+        android:layout_alignParentTop="true" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_user"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/edt_search_user"
+        android:layout_marginTop="12dp" />
+</RelativeLayout>

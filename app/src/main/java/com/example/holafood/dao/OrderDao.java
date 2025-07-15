@@ -37,4 +37,6 @@ public interface OrderDao {
 
     @Query("SELECT * FROM Orders WHERE status = :status")
     LiveData<List<Order>> getOrdersByStatus(OrderStatus status);
+    @Query("SELECT * FROM Orders")
+    List<Order> getAllOrders();
 }

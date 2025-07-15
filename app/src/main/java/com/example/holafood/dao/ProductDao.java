@@ -34,4 +34,6 @@ public interface ProductDao {
 
     @Query("SELECT * FROM Products WHERE status = :status")
     LiveData<List<Product>> getProductsByStatus(ProductStatus status);
+    @Query("SELECT * FROM Products")
+    List<Product> getAllProducts();
 }

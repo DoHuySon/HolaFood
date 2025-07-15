@@ -10,7 +10,9 @@ import com.example.holafood.model.User;
 import com.example.holafood.model.Role;
 import com.example.holafood.model.StoreStatus;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Dao
 public interface UserDao {
@@ -52,4 +54,17 @@ public interface UserDao {
     // Ktra đăng nhập
     @Query("SELECT * FROM Users WHERE phone_number = :phoneNumber AND password = :password")
     User getUserByPhoneAndPassword(String phoneNumber, String password);
+
+    default Set<String> getStoreSet(List<Integer> ids) {
+        Set<String> set = new HashSet<>();
+        for (int id : ids) {
+            User user =  this.getUserById(id)
+                    .getValue();
+            if (user != null) {
+                set.add(user.getStoreName());
+            }
+
+        }
+        return set;
+    }
 }

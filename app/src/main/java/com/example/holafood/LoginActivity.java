@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.holafood.database.AppDatabase;
 import com.example.holafood.model.Product;
 import com.example.holafood.model.ProductStatus;
 import com.example.holafood.model.Role;
@@ -54,6 +55,9 @@ public class LoginActivity extends AppCompatActivity {
         onBindingView();
         onBindingAction();
 
+        AppDatabase.getDatabase(getBaseContext())
+                .userDao()
+                .getAllUsers();
         // Khởi tạo SessionManager
         sessionManager = new SessionManager(this);
 
