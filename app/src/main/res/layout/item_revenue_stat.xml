@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FFFFFF"
+    android:layout_marginBottom="8dp">
+
+    <TextView
+        android:id="@+id/period_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thời gian: 01/07/2025 - 07/07/2025"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/revenue_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Doanh thu: 500.00đ"
+        android:textSize="14sp"
+        android:paddingTop="4dp" />
+
+</LinearLayout>
