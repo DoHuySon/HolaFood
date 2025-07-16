@@ -110,12 +110,10 @@ private void insertSampleData() {
             );
             long user1Id = App.getDatabase().userDao().insertUser(user1); // Lấy ID sau khi chèn
             long user2Id = App.getDatabase().userDao().insertUser(user2);
-            user1.setUserId((int) user1Id); // Cập nhật ID cho user1
-            user2.setUserId((int) user2Id); // Cập nhật ID cho user2
 
-            // Chèn sản phẩm mẫu
+            // Chèn sản phẩm mẫu sử dụng user2Id trực tiếp
             Product product1 = new Product(
-                    user2.getUserId(),
+                    (int) user2Id, // Sử dụng user2Id thay vì user2.getUserId()
                     "Pizza",
                     "Pizza ngon",
                     10.99,
@@ -123,7 +121,7 @@ private void insertSampleData() {
                     ProductStatus.AVAILABLE
             );
             Product product2 = new Product(
-                    user2.getUserId(),
+                    (int) user2Id, // Sử dụng user2Id thay vì user2.getUserId()
                     "Hamburger",
                     "Hamburger giòn",
                     5.99,
@@ -137,8 +135,8 @@ private void insertSampleData() {
 
             // Chèn đơn hàng mẫu
             Order order1 = new Order(
-                    user1.getUserId(),
-                    user2.getUserId(),
+                    (int) user1Id, // Sử dụng user1Id trực tiếp
+                    (int) user2Id, // Sử dụng user2Id trực tiếp
                     50.0,
                     "123 Đường ABC, TP.HCM",
                     "0901234567",
@@ -146,8 +144,8 @@ private void insertSampleData() {
                     OrderStatus.PLACED
             );
             Order order2 = new Order(
-                    user1.getUserId(),
-                    user2.getUserId(),
+                    (int) user1Id, // Sử dụng user1Id trực tiếp
+                    (int) user2Id, // Sử dụng user2Id trực tiếp
                     75.0,
                     "456 Đường XYZ, TP.HCM",
                     "0912345678",
@@ -185,14 +183,14 @@ private void insertSampleData() {
             // Chèn đánh giá mẫu
             Review review1 = new Review(
                     product1.getProductId(),
-                    user1.getUserId(),
+                    (int) user1Id, // Sử dụng user1Id trực tiếp
                     order1.getOrderId(),
                     4,
                     "Rất ngon, sẽ đặt lại!"
             );
             Review review2 = new Review(
                     product2.getProductId(),
-                    user1.getUserId(),
+                    (int) user1Id, // Sử dụng user1Id trực tiếp
                     order1.getOrderId(),
                     5,
                     "Hamburger tuyệt vời!"
@@ -202,25 +200,25 @@ private void insertSampleData() {
 
             // Chèn thống kê doanh thu mẫu
             RevenueStat revenueStat1 = new RevenueStat(
-                    user2.getUserId(),
+                    (int) user2Id, // Sử dụng user2Id trực tiếp
                     125.0,
                     new Date(System.currentTimeMillis() - 7 * 24 * 60 * 60 * 1000), // Tuần trước
                     new Date(System.currentTimeMillis()) // Hôm nay
             );
             RevenueStat revenueStat2 = new RevenueStat(
-                    user2.getUserId(),
+                    (int) user2Id, // Sử dụng user2Id trực tiếp
                     200.0,
                     new Date(System.currentTimeMillis() - 14 * 24 * 60 * 60 * 1000), // Hai tuần trước
                     new Date(System.currentTimeMillis() - 7 * 24 * 60 * 60 * 1000) // Tuần trước
             );
             App.getDatabase().revenueStatDao().insertRevenueStat(revenueStat1);
             App.getDatabase().revenueStatDao().insertRevenueStat(revenueStat2);
-
         }
         runOnUiThread(() -> {
             // Cập nhật UI nếu cần
         });
     }).start();
+
 }
 
     private class LoginTask extends AsyncTask<String, Void, User> {

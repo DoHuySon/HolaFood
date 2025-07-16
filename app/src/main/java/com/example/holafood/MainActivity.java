@@ -8,6 +8,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,7 @@ import com.example.holafood.util.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements ProductAdapter.OnItemClickListener {
 
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements ProductAdapter.On
     private ProductAdapter productAdapter;
     private List<Product> productList = new ArrayList<>();
     private ImageView menuIcon;
+    private SearchView searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,22 @@ public class MainActivity extends AppCompatActivity implements ProductAdapter.On
         productAdapter = new ProductAdapter(productList, this);
         rvProducts.setAdapter(productAdapter);
 
+        // Khởi tạo thanh tìm kiếm
+        searchBar = findViewById(R.id.search_bar);
+        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filterProducts(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterProducts(newText);
+                return true;
+            }
+        });
+
         // Quan sát danh sách sản phẩm từ LiveData
         App.getDatabase().productDao().getAllProducts().observe(this, new Observer<List<Product>>() {
             @Override
@@ -46,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements ProductAdapter.On
                     productList.clear();
                     productList.addAll(products);
                     productAdapter.setProductList(productList); // Cập nhật danh sách trong Adapter
+                    filterProducts(searchBar.getQuery().toString()); // Áp dụng lọc ngay lập tức
                 }
             }
         });
@@ -58,6 +78,21 @@ public class MainActivity extends AppCompatActivity implements ProductAdapter.On
                 showPopupMenu(v);
             }
         });
+    }
+
+    private void filterProducts(String query) {
+        List<Product> filteredList = new ArrayList<>();
+        if (query == null || query.isEmpty()) {
+            filteredList.addAll(productList); // Hiển thị toàn bộ nếu không có từ khóa
+        } else {
+            String searchQuery = query.toLowerCase(Locale.getDefault());
+            for (Product product : productList) {
+                if (product.getName().toLowerCase(Locale.getDefault()).contains(searchQuery)) {
+                    filteredList.add(product); // Lọc theo tên sản phẩm
+                }
+            }
+        }
+        productAdapter.setProductList(filteredList); // Cập nhật Adapter với danh sách đã lọc
     }
 
     private void showPopupMenu(View v) {

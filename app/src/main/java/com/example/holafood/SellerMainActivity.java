@@ -100,6 +100,14 @@ public class SellerMainActivity extends AppCompatActivity implements ProductSell
                 intent.putExtra("sellerId", getCurrentSellerId()); // Thay bằng logic lấy sellerId thực tế
                 startActivity(intent);
                 return true;
+            }else if (item.getItemId() == R.id.menu_seller_logout) {
+                Toast.makeText(this, "Đăng xuất", Toast.LENGTH_SHORT).show();
+                SessionManager sessionManager = new SessionManager(this);
+                sessionManager.logout(); // Xóa session
+                Intent intent = new Intent(SellerMainActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Xóa tất cả activity trước đó
+                startActivity(intent);
+                return true;
             } else {
                 return false;
             }

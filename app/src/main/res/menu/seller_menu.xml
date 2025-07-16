@@ -9,4 +9,7 @@
     <item
         android:id="@+id/menu_view_revenue"
         android:title="Xem thống kê doanh thu" />
+    <item
+        android:id="@+id/menu_seller_logout"
+        android:title="Đăng xuất" />
 </menu>
